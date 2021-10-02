@@ -1,6 +1,6 @@
-import { canvas, ctx } from './Canvas'
-import { FONTSIZE, getRandomInt, INF } from './Global'
-import mouse from './Mouse'
+import { canvas, ctx } from './Canvas.js'
+import { FONTSIZE, getRandomInt, INF } from './Global.js'
+import mouse from './Mouse.js'
 
 const RADIUS = 10
 const D_RADIUS = 2		//증가량
@@ -102,7 +102,6 @@ class Graph {
 		for (let i = 0; i < this.list.length; i++) {
 			this.list[i].setOnDjikstra(false)
 		}
-		// this.list[a].setOnDjikstra(true)
 
 		//initialize distances from the first node
 		for (let i = 0; i < this.list.length; i++) {
@@ -125,7 +124,12 @@ class Graph {
 					min_distance_index = i
 				}
 			}
-			checked.push(min_distance_index)
+
+			if (min_distance_index !== -1)
+				checked.push(min_distance_index)
+			else
+				break
+				
 			//this.list[min_distance_index].setOnDjikstra(true)
 			if (min_distance_index === b) break;
 			const keys: number[] = this.list[min_distance_index].getListOfLink()
@@ -139,7 +143,7 @@ class Graph {
 		checked.reverse()
 		const showDjikstra = () => {
 			if (checked.length) {
-				this.list[checked[checked.length-1]].setOnDjikstra(true)
+				this.list[checked[checked.length - 1]].setOnDjikstra(true)
 				checked.pop()
 				setTimeout(showDjikstra, 500)
 			}

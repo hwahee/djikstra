@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec ts-node --project tsconfig-server.json app.ts"
+    "start": "ts-node --project tsconfig-server.json app.ts",
+    "devStart":"nodemon --exec tsc | ts-node --project tsconfig-server.json app.ts"
+  },
+  "nodemonConfig":{
+    "ignore":["js/**"]
   },
   "keywords": [],
   "author": "",

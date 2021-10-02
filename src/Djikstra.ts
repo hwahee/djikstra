@@ -1,5 +1,5 @@
-import { clearCanvas } from './Canvas'
-import {Node_array} from './Graph'
+import { clearCanvas } from './Canvas.js'
+import {Node_array} from './Graph.js'
 
 document.getElementById("cnt").addEventListener('click', ()=>{
 	const src:number = parseInt((document.getElementById("cnt_src") as HTMLInputElement).value)
