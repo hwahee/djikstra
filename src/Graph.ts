@@ -1,5 +1,5 @@
 import { canvas, ctx } from './Canvas.js'
-import { FONTSIZE, getRandomInt, INF } from './Global.js'
+import { FONTSIZE, getRandomColorRGB, getRandomInt, INF, MAX_NODE, symbol } from './Global.js'
 import mouse from './Mouse.js'
 
 const RADIUS = 10
@@ -13,8 +13,8 @@ class GraphNode {
 	private color: string
 	private on_djikstra: boolean = false
 	private link: { [key: number]: number } = {}
-	constructor(alphabet: string[], color: string) {
-		this.item = alphabet[0]
+	constructor(alphabet: string, color: string) {
+		this.item = alphabet
 		this.x = getRandomInt(canvas.width)
 		this.y = getRandomInt(canvas.height)
 		this.color = color
@@ -78,14 +78,53 @@ class GraphNode {
 
 class Graph {
 	private list: GraphNode[] = []
-	newNode(symbol: any, color: string) {
-		this.list.push(new GraphNode(symbol, color))
+	newNode() {
+		for(let i=0;i<this.size();i++){
+			if(this.list[i]===undefined){
+				this.list[i]=new GraphNode(symbol.at(i), getRandomColorRGB())
+				return
+			}
+		}
+		if(MAX_NODE <= this.size()){
+			alert("노드의 개수가 최대입니다.")
+			return
+		}
+		this.list.push(new GraphNode(symbol.assign(), getRandomColorRGB()))
+	}
+	deleteNode(){
+		this.clearLink(this.size()-1)
+		this.list.pop()
+		symbol.unassign()
 	}
 	link(a: number, b: number, twoway: boolean) {
 		if (!this.list[a].isLinked(b))
 			this.list[a].connect(b)
 		if (twoway)
 			this.link(b, a, false);
+	}
+	linkRandom(num: number, twoway: boolean) {
+		for(let i=0;i<this.size();i++)
+			this.clearLink(i)
+
+		while (0 < num) {
+			let a: number
+			let b: number
+			let trial=1000
+			while (true) {
+				a = getRandomInt(this.size())
+				b = getRandomInt(this.size())
+				if (!(this.list[a]==undefined || this.list[b]==undefined ) && a!==b && !this.list[a].isLinked(b)) break;
+				else{
+					trial--
+					if(trial<=0){
+						alert("유효하지 않은 링크의 개수입니다.")
+						return
+					}
+				}
+			}
+			this.link(a, b, twoway);
+			num--
+		}
 	}
 	cut(a: number, b: number, twoway: boolean) {
 		if (this.list[a].isLinked(b))
@@ -94,17 +133,21 @@ class Graph {
 			this.cut(b, a, false);
 	}
 	clearLink(idx: number) {
-		this.list[idx].disconnectAll()
+		for(let i=0;i<this.size();i++){
+			this.cut(idx, i, true)
+		}
 	}
 	djikstra(a: number, b: number) {
 		let distance_array: number[] = []
 		let checked: number[] = [a]
 		for (let i = 0; i < this.list.length; i++) {
+			if(this.list[i]==undefined) continue
 			this.list[i].setOnDjikstra(false)
 		}
 
 		//initialize distances from the first node
 		for (let i = 0; i < this.list.length; i++) {
+			if(this.list[i]==undefined) continue
 			if (i === a)
 				distance_array[i] = 0;
 			else if (!this.list[a].isLinked(i))
@@ -129,7 +172,7 @@ class Graph {
 				checked.push(min_distance_index)
 			else
 				break
-				
+
 			//this.list[min_distance_index].setOnDjikstra(true)
 			if (min_distance_index === b) break;
 			const keys: number[] = this.list[min_distance_index].getListOfLink()
@@ -152,8 +195,10 @@ class Graph {
 
 		return distance_array[b];
 	}
+	size() { return this.list.length }
 	setDistance() {
 		for (let i = 0; i < this.list.length; i++) {
+			if(this.list[i]==undefined) continue
 			for (let j of this.list[i].getListOfLink()) {
 				var src = this.list[i].getShapeInfo()
 				var dst = this.list[j].getShapeInfo()
@@ -168,6 +213,7 @@ class Graph {
 			const m: any = mouse.getPosition()
 			if (mouse.getSelected() === undefined) {
 				for (let i = 0; i < this.list.length; i++) {
+					if(this.list[i]==undefined) continue
 					const target = this.list[i].getShapeInfo()
 					if (Math.pow((target.x - m.x), 2) + Math.pow((target.y - m.y), 2) <= Math.pow(target.r, 2)) {
 						mouse.select(i)
@@ -181,7 +227,8 @@ class Graph {
 		}
 	}
 	draw() {
-		for (let i = 0; i < this.list.length; i++) {
+		for (let i = 0; i < this.size(); i++) {
+			if(this.list[i]==undefined) continue
 			for (let j of this.list[i].getListOfLink()) {
 				var src = this.list[i].getShapeInfo()
 				var dst = this.list[j].getShapeInfo()
@@ -210,22 +257,6 @@ class Graph {
 }
 
 const Node_array: Graph = new Graph()
-Node_array.newNode("A", "rgba(192, 168, 0, 1)");
-Node_array.newNode("Bamaica", "green");
-Node_array.newNode("C", "black");
-Node_array.newNode("D", "purple");
-Node_array.newNode("E", "coral");
-Node_array.newNode("F", "blue");
-Node_array.newNode("G", "brown");
-Node_array.newNode("HWAHEE", "gray");
-
-Node_array.link(0, 1, true);
-Node_array.link(0, 2, true);
-Node_array.link(1, 3, true);
-Node_array.link(1, 4, true);
-Node_array.link(2, 5, true);
-Node_array.link(2, 6, true);
-Node_array.link(3, 7, true);
 
 export { Node_array }
 
