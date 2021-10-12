@@ -1,4 +1,4 @@
-import { clearCanvas } from './Canvas.js'
+import { clearCanvas } from '../common/Canvas.js'
 import { Node_array } from './Graph.js'
 
 document.getElementById("cnt").addEventListener('click', () => {
