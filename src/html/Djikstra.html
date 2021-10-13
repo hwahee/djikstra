@@ -18,6 +18,11 @@
 <body>
     <canvas id="myCanvas" width="600" height="480"></canvas>
     <br />
+    <input type="button" id="calculate_djikstra" value="다익스트라" />
+    <input type="number" id="dj_src" value="0" style="width:40px" />부터
+    <input type="number" id="dj_dst" value="0" style="width:40px" />까지의 거리 :
+    <input type="number" id="dj_ret" value="0" readonly />
+    <br />
     <input type="button" id="cnt" value="연결" />
     <input type="number" id="cnt_src" value="0" style="width:40px" />부터
     <input type="number" id="cnt_dst" value="0" style="width:40px" />까지 -
@@ -35,7 +40,7 @@
     <input type="number" id="linkRandom_num" value="0" />
     <input type="checkbox" id="linkRandom_double" />양방향
 
-    <script src="./src/Djikstra.js" type="module">
+    <script src="./src/module/Djikstra/Djikstra.js" type="module">
     </script>
 </body>
 

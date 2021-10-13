@@ -1,14 +1,9 @@
-import { canvas, ctx } from '../common/Canvas.js'
-import { FONTSIZE, getRandomColorRGB, getRandomInt, INF, MAX_NODE, symbol } from '../common/Global.js'
-import mouse from '../common/Mouse.js'
+import { ctx } from '../common/Canvas.js'
+import { INF } from '../common/Global.js'
 import { Graph, GraphNode } from '../common/Graph.js'
 
 const RADIUS = 10
 const D_RADIUS = 2		//증가량
-
-interface ShapeInfo {
-	x: number, y: number, r: number, color: string
-}
 
 class GraphNode_Djikstra extends GraphNode {
 	private on_djikstra: boolean = false
@@ -77,7 +72,7 @@ class Graph_Djikstra extends Graph {
 				break
 
 			//this.list[min_distance_index].setOnDjikstra(true)
-			if (min_distance_index === b) break;
+			if (min_distance_index === b) break
 			const keys: number[] = this.list[min_distance_index].getListOfLink()
 			for (let i of keys) {
 				if (distance_array[min_distance_index] + this.list[min_distance_index].getDistance(i) < distance_array[i]) {

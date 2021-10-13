@@ -6,6 +6,11 @@ function getRandomInt(max:number):number{
 function getRandomColorRGB():string{
     return `rgba(${getRandomInt(256)},${getRandomInt(256)},${getRandomInt(256)},1)`
 }
+
+interface ShapeInfo {
+	x: number, y: number, r: number, color: string
+}
+
 class Symbol{
 	private list:string="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	private cursor:number=0;
@@ -26,4 +31,4 @@ class Symbol{
 const symbol=new Symbol()
 const MAX_NODE=symbol.size()
 
-export {FONTSIZE, INF, getRandomInt, getRandomColorRGB, symbol, MAX_NODE}
+export {FONTSIZE, INF, ShapeInfo, getRandomInt, getRandomColorRGB, symbol, MAX_NODE}

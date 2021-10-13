@@ -1,13 +1,9 @@
 import { canvas, ctx } from './Canvas.js'
-import { FONTSIZE, getRandomColorRGB, getRandomInt, INF, MAX_NODE, symbol } from './Global.js'
+import { FONTSIZE, getRandomColorRGB, getRandomInt, MAX_NODE, ShapeInfo, symbol } from './Global.js'
 import mouse from './Mouse.js'
 
 const RADIUS = 10
 const D_RADIUS = 2		//증가량
-
-interface ShapeInfo {
-	x: number, y: number, r: number, color: string
-}
 
 class GraphNode {
 	private item: string
@@ -64,7 +60,6 @@ class GraphNode {
 		ctx.closePath()
 	}
 }
-
 
 class Graph {
 	protected list: GraphNode[] = []
@@ -175,6 +170,8 @@ class Graph {
 	}
 }
 
-export { GraphNode, Graph }
+const Node_array: Graph = new Graph()
+
+export { GraphNode, Graph, Node_array }
 
 

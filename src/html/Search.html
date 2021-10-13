@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>그래프 그리기</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            background-color: lightskyblue;
+        }
+    </style>
+    <script>
+    </script>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="600" height="480"></canvas>
+    <br />
+	<input type="number" id="search_start" value="0" />부터
+    <input type="button" id="do_DFS" value="DFS" />
+    <input type="button" id="do_BFS" value="BFS" />:&nbsp;
+    <input type="text" id="search_result" value="0" readonly />
+    <br />
+    <input type="button" id="cnt" value="연결" />
+    <input type="number" id="cnt_src" value="0" style="width:40px" />부터
+    <input type="number" id="cnt_dst" value="0" style="width:40px" />까지 -
+    <input type="checkbox" id="cnt_double" />양방향
+    <br />
+    <input type="button" id="cut" value="절단" />
+    <input type="number" id="cut_src" value="0" style="width:40px" />부터
+    <input type="number" id="cut_dst" value="0" style="width:40px" />까지 -
+    <input type="checkbox" id="cut_double" />양방향
+    <br />
+    <input type="button" id="newNode" value="노드 추가" />
+    <input type="button" id="deleteNode" value="노드 삭제" />
+    <br />
+    <input type="button" id="linkRandom" value="랜덤 링크" />
+    <input type="number" id="linkRandom_num" value="0" />
+    <input type="checkbox" id="linkRandom_double" />양방향
+
+    <script src="./src/module/Search/Search.js" type="module">
+    </script>
+</body>
+
+</html>
