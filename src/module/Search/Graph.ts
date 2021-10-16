@@ -1,8 +1,6 @@
 import { ctx } from '../common/Canvas.js'
+import { ANIMATION_SPEED } from '../common/Global.js'
 import { Graph, GraphNode } from '../common/Graph.js'
-
-const RADIUS = 10
-const D_RADIUS = 2		//증가량
 
 class GraphNode_Search extends GraphNode {
 	private visited: boolean = false
@@ -43,7 +41,7 @@ class Graph_Search extends Graph {
 			if (this.list[i] == undefined) continue
 			this.list[i].setVisited(false)
 		}
-		if(this.list.length<=start){
+		if (this.list.length <= start) {
 			return "INVALID START POINT"
 		}
 
@@ -52,7 +50,7 @@ class Graph_Search extends Graph {
 		result.push(start)
 		this.DFS_core(start, result)
 
-		let visited=result.slice()
+		let visited = result.slice()
 		visited.reverse()
 		for (let i = 0; i < this.list.length; i++) {
 			if (this.list[i] == undefined) continue
@@ -62,10 +60,76 @@ class Graph_Search extends Graph {
 			if (visited.length) {
 				this.list[visited[visited.length - 1]].setVisited(true)
 				visited.pop()
-				setTimeout(showDFS, 500)
+				setTimeout(showDFS, ANIMATION_SPEED)
 			}
 		}
 		showDFS()
+
+		return result
+	}
+	BFS(start: number) {
+		class UnpoppingQueue {
+			arr: number[]=[]
+			L = 0
+			R = 0
+			size() { return this.R - this.L }
+			push(item: number) {
+				this.arr.push(item)
+				this.R += 1
+			}
+			top() {
+				if (this.L === this.R) {
+					return undefined
+				}
+				return this.arr[this.L]
+			}
+			pop() {
+				const ret: number | undefined = this.top()
+				if (ret !== undefined) this.L++
+				return ret
+			}
+		}
+		const q: UnpoppingQueue = new UnpoppingQueue()
+
+		//방문 여부 초기화 및 매개변수 사용 가능 확인
+		for (let i = 0; i < this.list.length; i++) {
+			if (this.list[i] == undefined) continue
+			this.list[i].setVisited(false)
+		}
+		if (this.list.length <= start) {
+			return "INVALID START POINT"
+		}
+
+		//초기 변수, 큐, 방문여부 세팅
+		let result:number[]=[start]
+		q.push(start)
+		this.list[start].setVisited(true)
+
+		while (q.size()){
+			const target:number=q.pop()
+			for(let i of this.list[target].getListOfLink()){
+				if(!this.list[i].isVisited()){
+					q.push(i)
+					this.list[i].setVisited(true)
+					result.push(i)
+				}
+			}
+		}
+		
+		let visited = result.slice()
+		visited.reverse()
+		for (let i = 0; i < this.list.length; i++) {
+			if (this.list[i] == undefined) continue
+			this.list[i].setVisited(false)
+		}
+		const showBFS = () => {
+			if (visited.length) {
+				this.list[visited[visited.length - 1]].setVisited(true)
+				visited.pop()
+				setTimeout(showBFS, ANIMATION_SPEED)
+			}
+		}
+		showBFS()
 
 		return result
 	}

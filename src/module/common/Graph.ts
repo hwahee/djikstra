@@ -1,9 +1,6 @@
 import { canvas, ctx } from './Canvas.js'
-import { FONTSIZE, getRandomColorRGB, getRandomInt, MAX_NODE, ShapeInfo, symbol } from './Global.js'
+import { D_RADIUS, FONTSIZE, getRandomColorRGB, getRandomInt, MAX_NODE, RADIUS, ShapeInfo, symbol } from './Global.js'
 import mouse from './Mouse.js'
-
-const RADIUS = 10
-const D_RADIUS = 2		//증가량
 
 class GraphNode {
 	private item: string

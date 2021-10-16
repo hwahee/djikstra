@@ -26,6 +26,13 @@ document.getElementById("do_DFS").addEventListener('click', () => {
         ret.value = String(Node_array.DFS(start))
     })
 })
+document.getElementById("do_BFS").addEventListener('click', () => {
+    const start: number = parseInt((document.getElementById("search_start") as HTMLInputElement).value)
+    handler.push(() => {
+        const ret: HTMLInputElement = document.getElementById('search_result') as HTMLInputElement
+        ret.value = String(Node_array.BFS(start))
+    })
+})
 document.getElementById("newNode").addEventListener('click', () => {
     handler.push(() => { Node_array.newNode() })
 })

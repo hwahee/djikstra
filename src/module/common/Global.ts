@@ -1,5 +1,9 @@
 const FONTSIZE:number=20
 const INF:number=4000000
+const RADIUS = 10
+const D_RADIUS = 2
+const ANIMATION_SPEED:number=500
+
 function getRandomInt(max:number):number{
     return Math.floor(Math.random() * Math.floor(max))
 }
@@ -31,4 +35,4 @@ class Symbol{
 const symbol=new Symbol()
 const MAX_NODE=symbol.size()
 
-export {FONTSIZE, INF, ShapeInfo, getRandomInt, getRandomColorRGB, symbol, MAX_NODE}
+export {FONTSIZE, INF,ANIMATION_SPEED, ShapeInfo, getRandomInt, getRandomColorRGB, symbol, MAX_NODE,RADIUS,D_RADIUS}

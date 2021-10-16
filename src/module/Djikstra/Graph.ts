@@ -1,9 +1,6 @@
 import { ctx } from '../common/Canvas.js'
-import { INF } from '../common/Global.js'
+import { ANIMATION_SPEED, INF } from '../common/Global.js'
 import { Graph, GraphNode } from '../common/Graph.js'
-
-const RADIUS = 10
-const D_RADIUS = 2		//증가량
 
 class GraphNode_Djikstra extends GraphNode {
 	private on_djikstra: boolean = false
@@ -86,7 +83,7 @@ class Graph_Djikstra extends Graph {
 			if (checked.length) {
 				this.list[checked[checked.length - 1]].setOnDjikstra(true)
 				checked.pop()
-				setTimeout(showDjikstra, 500)
+				setTimeout(showDjikstra, ANIMATION_SPEED)
 			}
 		}
 		showDjikstra()
