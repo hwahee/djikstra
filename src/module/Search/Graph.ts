@@ -147,8 +147,6 @@ class Graph_Search extends Graph {
 	}
 }
 
-const Node_array: Graph_Search = new Graph_Search()
-
-export { Node_array }
+export { Graph_Search }
 
 

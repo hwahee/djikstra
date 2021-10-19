@@ -2,6 +2,14 @@ import { canvas, ctx } from './Canvas.js'
 import { D_RADIUS, FONTSIZE, getRandomColorRGB, getRandomInt, MAX_NODE, RADIUS, ShapeInfo, symbol } from './Global.js'
 import mouse from './Mouse.js'
 
+interface IF_GraphNopde {
+	r: number
+	link: number[]
+	item: string
+	x: number
+	y: number
+	color: string
+}
 class GraphNode {
 	private item: string
 	protected x: number
@@ -14,6 +22,14 @@ class GraphNode {
 		this.x = getRandomInt(canvas.width)
 		this.y = getRandomInt(canvas.height)
 		this.color = color
+	}
+	fromJSON(obj: IF_GraphNopde) {
+		this.r = obj.r
+		this.link = obj.link
+		this.item = obj.item
+		this.x = obj.x
+		this.y = obj.y
+		this.color = obj.color
 	}
 	isLinked(idx: number) {
 		return this.link[idx] !== undefined
@@ -73,6 +89,15 @@ class Graph {
 			return
 		}
 		this.list.push(this.makeNewNode(symbol.assign(), getRandomColorRGB()))
+	}
+	assignJsonToNode(obj: any) {
+		symbol.reset()
+		for (let i of obj) {
+			this.newNode()
+			const target: IF_GraphNopde = i as IF_GraphNopde
+			target.item = symbol.assign()
+			this.list[this.list.length - 1].fromJSON(target)
+		}
 	}
 	deleteNode() {
 		this.clearLink(this.size() - 1)
@@ -165,10 +190,11 @@ class Graph {
 		}
 		this.drawNode()
 	}
+	print() { return JSON.stringify(this) }
 }
 
 const Node_array: Graph = new Graph()
 
-export { GraphNode, Graph, Node_array }
+export { IF_GraphNopde, GraphNode, Graph, Node_array }
 
 

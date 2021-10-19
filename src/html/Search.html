@@ -16,6 +16,12 @@
 </head>
 
 <body>
+    <h2>DFS, BFS</h2>
+    <ul>
+        <li><a href="/" >일반 그래프</a></li>
+        <li><a href="/search" >BFS, DFS</a></li>
+        <li><a href="/djikstra" >다익스트라</a></li>
+    </ul>
     <canvas id="myCanvas" width="600" height="480"></canvas>
     <br />
 	<input type="number" id="search_start" value="0" />부터
@@ -39,6 +45,10 @@
     <input type="button" id="linkRandom" value="랜덤 링크" />
     <input type="number" id="linkRandom_num" value="0" />
     <input type="checkbox" id="linkRandom_double" />양방향
+    <br />
+    <input type="button" id="printObject" value="객체 출력" />
+    <input type="button" id="saveObject" value="객체 저장" />
+    <input type="button" id="loadObject" value="객체 불러오기" />
 
     <script src="./src/module/Search/Search.js" type="module">
     </script>

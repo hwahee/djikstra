@@ -29,6 +29,9 @@ class Symbol{
     unassign(){
         if(--this.cursor<0) this.cursor=0
     }
+	reset(){
+		this.cursor=0
+	}
 	at(idx:number){return this.list[idx]}
     size(){return this.list.length}
 }

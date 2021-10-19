@@ -1,5 +1,8 @@
 import { clearCanvas } from '../common/Canvas.js'
-import { Node_array } from './Graph.js'
+import { IF_GraphNopde } from '../common/Graph.js'
+import { Graph_Search } from './Graph.js'
+
+let Node_array: Graph_Search = new Graph_Search()
 
 document.getElementById("cnt").addEventListener('click', () => {
     const src: number = parseInt((document.getElementById("cnt_src") as HTMLInputElement).value)
@@ -43,6 +46,21 @@ document.getElementById("linkRandom").addEventListener('click', () => {
 })
 document.getElementById("deleteNode").addEventListener('click', () => {
     handler.push(() => { Node_array.deleteNode() })
+})
+document.getElementById("printObject").addEventListener('click', () => {
+    handler.push(() => { console.log(Node_array.print()) })
+})
+document.getElementById("saveObject").addEventListener('click', () => {
+    handler.push(() => { window.localStorage.setItem("Graph_Search", Node_array.print()) })
+})
+document.getElementById("loadObject").addEventListener('click', () => {
+    handler.push(() => {
+        const loaded = JSON.parse(window.localStorage.getItem("Graph_Search"))
+        if(loaded!==undefined){
+            Node_array=new Graph_Search()
+            Node_array.assignJsonToNode(loaded.list)
+        }
+    })
 })
 
 const handler: CallableFunction[] = []

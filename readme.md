@@ -14,7 +14,9 @@
 - 임계 경로 표시하기
 - 연결, 절단의 숫자를 캔버스에 있는 문자로 표기하기
 ### 211016
-- Search: DFS
+- Search: BFS
+- 그래프 저장/불러오기와 이를 위한 오브젝트 인터페이스
+
 ### 완료
 - 캔버스에 그래프 그리기
 - 마우스로 노드 위치 움직이기
@@ -24,6 +26,7 @@
 - 웹서버에서 js파일 get요청 따로 되어있는 것 express.static.으로 처리하기
 - 링크 랜덤하게 섞기
 - 노드 추가/제거
+
 ## 발생한 문제 및 해결법
 - 문제: exports is not defined
 	- 원인: tsconfig에서  target과 module의 설정이 웹 브라우저에서 동작할 때와 node에서 동작할 때 차이가 있다
@@ -33,3 +36,5 @@
 	- 해결: 웹서버를 위한 tsconfig를 별도로 만들고 ts-node 실행 시 --project tsconfig-erver.json을 추가해서 별도의 컴파일 규칙을 따르도록 함
 - 문제: ts에서 컴파일된 js파일에서 import할 때 404 문제 발생
 	- 해결: ts파일의 import 부분에서 "from '*.js'" 사용 -> 문제 발생하지 않음
+- 문제: ts class는 다중 constructor를 지원하지 않음(메소드 오버로딩 불가)
+	- 해결: 
